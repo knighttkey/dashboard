@@ -87,6 +87,7 @@ export default () => {
         </div>
         <div className="chart_area">
           <div className="each_chart">
+          <div className="chart_title">Power Consumption</div>
             <LineChart
               labels={labelsList}
               dataList={lineChartData1}
@@ -99,6 +100,7 @@ export default () => {
             />
           </div>
           <div className="each_chart">
+          <div className="chart_title">Production</div>
             <VerticalBarChart
               labels={labelsList}
               dataList={lineChartData2}
@@ -111,6 +113,7 @@ export default () => {
             />
           </div>
           <div className="each_chart">
+          <div className="chart_title">Visitors</div>
             <BubbleChart
               dataList={bubbleData}
               maxSize={"100%"}
@@ -125,6 +128,7 @@ export default () => {
       </div>
       <div className="center" ref={centerRef}>
         <div className="each_line_race">
+        <div className="chart_title">Income</div>
           <div className="line_race_inner">
             <LineRace
               maxWidth={"100%"}
@@ -193,11 +197,12 @@ export default () => {
           </div>
           <div className="wrap">
             <div className="horizontal_chart">
+            <div className="chart_title">Water Consumption</div>
               <HorizontalBarChart
                 labels={labelsList}
                 dataList={lineChartData2}
                 maxWidth={420}
-                maxHeight={260}
+                maxHeight={220}
                 sizeDefine="relative"
                 padding={0}
                 bgShow={false}
@@ -255,6 +260,8 @@ export default () => {
             </div>
           </div>
           <div className="each_chart sunburst_chart">
+            
+            <div className="chart_title">Equipment Type</div>
             <div className="sunburst_chart_inner">
               <SunBurst
                 maxWidth={"400px"}
