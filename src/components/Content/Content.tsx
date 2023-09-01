@@ -149,7 +149,7 @@ export default () => {
           }
         >
           <div className="wrap">
-            <div className="liquid_title">Water Capicity</div>
+            <div className="liquid_title">Water Capacity</div>
             <div className="liquid_row_inner">
               <div className="liquid_inner">
                 <LiquidFill
