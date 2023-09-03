@@ -12,13 +12,14 @@ import Gauge from "../Gauge";
 import LineRace from "./../LineRace";
 import LiquidFill from "./../LiquidFill";
 import newWeatherJson from "./../WeatherPanel/newWeather.json";
+import { useWindowSize } from "usehooks-ts";
 export default () => {
   const [currentTab, setCurrentTab] = useState<string>("Taipei");
   const centerRef = useRef<HTMLDivElement>(null);
   const [centerWidth, setCenterWidth] = useState<number>();
   const tabList = ["Taipei", "London", "Tokyo"];
   const labelsList = ["01", "02", "03", "04", "05", "06", "07", "08"];
-
+  const { width: windowWidth } = useWindowSize();
   useEffect(() => {
     if (!centerRef.current) return;
 
@@ -70,8 +71,8 @@ export default () => {
     },
   ];
   return (
-    <div className="content_container">
-      <div className="left">
+    <div className={`content_container  ${windowWidth <= 800 ? 'small_content':''}`}>
+      <div className={`left`}>
         <div className="switch_tab_row">
           {tabList.map((tabItem, tabIndex) => {
             return (
@@ -141,7 +142,7 @@ export default () => {
           </div>
         </div>
         <div
-          className="each_chart liguid_row"
+          className="each_chart liquid_row"
           style={
             {
               maxWidth: centerWidth ? centerWidth + "px" : "unset",
