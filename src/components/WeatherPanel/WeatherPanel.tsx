@@ -31,8 +31,8 @@ export default (props: {
         <div className={`temp`}>{roundTo(faker.number.int({ min: 10, max: 40 }), 0)}</div>
         <div className="unit">°</div>
         <div
-          className={`weather_icon`}
-          style={{ backgroundImage: `url(src/assets/a_icon/${weather.weather.icon}.svg)` }}
+          className={`weather_icon ${'w_' + weather.weather.icon}`}
+          // style={{ backgroundImage: `url(src/assets/a_icon/${weather.weather.icon}.svg)` }}
         ></div>
       </div>
     )
