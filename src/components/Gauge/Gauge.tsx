@@ -1,6 +1,6 @@
 import { useWindowSize } from "usehooks-ts";
 import "./Gauge.postcss";
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import * as echarts from "echarts";
 import { faker } from "@faker-js/faker";
 //@ts-ignore
@@ -15,6 +15,9 @@ interface Props {
   bgHalo?: boolean; //光暈顯示與否
   theme?: string; //主題 dark/light
   color:string
+  setGaugeAlertIndex:Function,
+  gaugeAlertIndex:number[] | []
+  index:number
 }
 
 export default (props: Props) => {
@@ -25,12 +28,22 @@ export default (props: Props) => {
     bgShow,
     bgHalo,
     theme,
-    color
+    color,
+    setGaugeAlertIndex,
+    gaugeAlertIndex,
+    index,
   } = props;
   const containerRef = useRef<HTMLDivElement>(null);
   const innerWrapRef = useRef<HTMLDivElement>(null);
   const { width: windowWidth } = useWindowSize();
 
+  const data = faker.number.int({ min: 5, max: 55 })
+  useEffect(() => {
+    // const value = faker.number.int({ min: 5, max: 55 })
+    let temp = [...gaugeAlertIndex]
+    temp[index] = data
+    setGaugeAlertIndex(temp)
+  }, []);
   const renderChart = useCallback(() => {
     const chartDom = containerRef.current;
     let chart = echarts.getInstanceByDom(chartDom as HTMLDivElement);
@@ -39,6 +52,7 @@ export default (props: Props) => {
         renderer: "canvas",
       });
     }
+
     chart.resize();
     const option = {
       series: [
@@ -107,7 +121,7 @@ export default (props: Props) => {
           },
           data: [
             {
-              value: faker.number.int({ min: 5, max: 55 }),
+              value: data,
             },
           ],
         },
@@ -153,6 +167,8 @@ export default (props: Props) => {
         },
       ],
     };
+
+
 
     return <>{chart.setOption(option) as unknown as HTMLCanvasElement}</>;
   }, [windowWidth]);

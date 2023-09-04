@@ -19,6 +19,9 @@ export default () => {
   const [centerWidth, setCenterWidth] = useState<number>();
   const tabList = ["Taipei", "London", "Tokyo"];
   const labelsList = ["01", "02", "03", "04", "05", "06", "07", "08"];
+  const [gaugeAlertIndex, setGaugeAlertIndex] = useState<number[]>([0, 0, 0]);
+  // console.log('gaugeAlertIndex', gaugeAlertIndex)
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const { width: windowWidth } = useWindowSize();
   useEffect(() => {
     if (!centerRef.current) return;
@@ -222,8 +225,8 @@ export default () => {
               cityName={currentTab}
             ></WeatherPanel>
           </div>
-          <div className="power_chart">
-            <div className="power_title">Power</div>
+          <div className={`power_chart ${showAlert ? 'alert': ''}`} onClick={()=>setShowAlert(!showAlert)}>
+            <div className="power_title">Power <div className='tip'>Click To Show Alert</div></div>
             <div className="power_inner">
               <div className="each_gague">
                 <Gauge
@@ -234,6 +237,9 @@ export default () => {
                   bgHalo={false}
                   theme="dark"
                   color="#51e2ff99"
+                  setGaugeAlertIndex={setGaugeAlertIndex}
+                  gaugeAlertIndex={gaugeAlertIndex}
+                  index={0}
                 />
               </div>
               <div className="each_gague">
@@ -245,6 +251,9 @@ export default () => {
                   bgHalo={false}
                   theme="dark"
                   color="#ffb93799"
+                  setGaugeAlertIndex={setGaugeAlertIndex}
+                  gaugeAlertIndex={gaugeAlertIndex}
+                  index={1}
                 />
               </div>
               <div className="each_gague">
@@ -256,6 +265,9 @@ export default () => {
                   bgHalo={false}
                   theme="dark"
                   color="#5fffb999"
+                  setGaugeAlertIndex={setGaugeAlertIndex}
+                  gaugeAlertIndex={gaugeAlertIndex}
+                  index={2}
                 />
               </div>
             </div>
