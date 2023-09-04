@@ -1,10 +1,12 @@
 import "./Header.postcss";
+import { useWindowSize } from "usehooks-ts";
 
 export default () => {
+  const { width: windowWidth } = useWindowSize();
   return (
-    <div className="header_container">
+    <div className={`header_container ${windowWidth <= 800? 'small_header': ''}`}>
       <div className="title">
-        <div className="title_text">System Platform</div>
+        <div className="title_text">DTSOC Dashboard</div>
         <div className="title_bg">
           <div className="title_bg_middle">
             <div className="title_bg_inner"></div>

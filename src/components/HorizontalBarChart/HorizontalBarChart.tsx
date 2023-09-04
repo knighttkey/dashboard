@@ -62,13 +62,13 @@ export default (props: HorizontalBarChartProps) => {
     dataList,
     maxWidth,
     maxHeight,
-    sizeDefine,
+    // sizeDefine,
     padding,
     bgShow,
     bgHalo,
     theme,
   } = props;
-  console.log('sizeDefine', sizeDefine)
+  // console.log('sizeDefine', sizeDefine)
   
   const options: ChartOptions = {
     indexAxis: "y" as const,
