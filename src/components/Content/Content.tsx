@@ -275,14 +275,17 @@ export default () => {
             </div>
           </div>
           <div className="each_chart earth">
-            <Earth
-              maxWidth={"300px"}
-              maxHeight="300px"
-              padding={0}
-              bgShow={false}
-              bgHalo={false}
-              theme="dark"
-            />
+            <div className='earth_wrap'>
+              <Earth
+                maxWidth={"300px"}
+                maxHeight="300px"
+                padding={0}
+                bgShow={false}
+                bgHalo={false}
+                theme="dark"
+              />
+
+            </div>
           </div>
         </div>
       </div>
