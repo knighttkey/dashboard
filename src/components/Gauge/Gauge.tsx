@@ -53,7 +53,7 @@ export default (props: Props) => {
       });
     }
 
-    chart.resize();
+    // chart.resize();
     const option = {
       series: [
         {
@@ -69,7 +69,7 @@ export default (props: Props) => {
           },
           progress: {
             show: true,
-            width: 12,
+            width: 5,
           },
 
           pointer: {
@@ -77,7 +77,7 @@ export default (props: Props) => {
           },
           axisLine: {
             lineStyle: {
-              width: 12,
+              width: 5,
             },
           },
           axisTick: {
@@ -99,7 +99,7 @@ export default (props: Props) => {
           axisLabel: {
             distance: 0,
             color: "transparent",
-            fontSize: 18,
+            fontSize: 12,
             display: false,
           },
           anchor: {
@@ -114,7 +114,7 @@ export default (props: Props) => {
             lineHeight: 0,
             borderRadius: 8,
             offsetCenter: [0, "-10%"],
-            fontSize: 14,
+            fontSize: 10,
             fontWeight: "bolder",
             formatter: "{value} kw",
             color: "inherit",
@@ -122,46 +122,6 @@ export default (props: Props) => {
           data: [
             {
               value: data,
-            },
-          ],
-        },
-
-        {
-          type: "gauge",
-          center: ["50%", "60%"],
-          startAngle: 200,
-          endAngle: -20,
-          min: 0,
-          max: 60,
-          itemStyle: {
-            color: "#5fffb9",
-          },
-          progress: {
-            show: false,
-            width: 8,
-          },
-
-          pointer: {
-            show: false,
-          },
-          axisLine: {
-            show: false,
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-          },
-          detail: {
-            show: false,
-          },
-          data: [
-            {
-              value: 15,
             },
           ],
         },

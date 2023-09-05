@@ -17,6 +17,7 @@
       padding: 15px;
       box-sizing: border-box;
       max-width: unset;
+      overflow: visible;
       .switch_tab_row {
         backdrop-filter: blur(10px);
       }
@@ -31,13 +32,21 @@
       padding: 15px;
       box-sizing: border-box;
       max-width: unset;
+      overflow: visible;
       .chart_area {
         .power_chart {
           backdrop-filter: blur(10px);
           .power_inner {
             .each_gague {
-              transform: scale(0.7);
-              transform-origin: 0 center;
+              /* transform: scale(0.7); */
+              /* transform-origin: 0 center; */ 
+              .gauge_container {
+                >div {
+                  /* max-height: 80px; */
+                  /* max-width: 120px; */
+                }
+
+              }
             }
           }
         }
@@ -48,15 +57,19 @@
     }
   }
   .left {
-    min-width: 500px;
-    max-width: 500px;
+    min-width: 400px;
+    max-width: 400px;
     box-sizing: border-box;
     padding: 15px 15px 15px 30px;
     display: flex;
     flex-direction: column;
     /* filter: drop-shadow(0px 0px 40px #86eefb99); */
     pointer-events: auto;
-
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     .switch_tab_row {
       border: 1px solid #51e2ff50;
       height: 50px;
@@ -70,7 +83,7 @@
       padding: 5px;
       margin: 0 0 20px 0;
       border-radius: 5px;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(10px);
       .tab {
         width: calc(100% / 3);
         height: 100%;
@@ -106,7 +119,7 @@
       flex-direction: column;
       box-sizing: border-box;
       .each_chart {
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(10px);
         background-color: #51e2ff10;
         margin: 0 0 20px 0;
         padding: 10px 10px 40px 10px;
@@ -129,10 +142,15 @@
   }
 
   .right {
-    max-width: 440px;
+    max-width: 400px;
     padding: 15px 30px 15px 15px;
     box-sizing: border-box;
     pointer-events: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     /* filter: drop-shadow(0px 0px 40px #86eefb99); */
     .chart_area {
       display: flex;
@@ -148,7 +166,7 @@
         box-sizing: border-box;
         padding: 10px;
         /* filter: drop-shadow(0px 0px 40px #86eefb99); */
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(10px);
         display: flex;
         flex-direction: column;
         cursor: pointer;
@@ -192,11 +210,10 @@
         }
         .power_inner {
           display: flex;
-          justify-content: space-around;
-
+          justify-content: space-evenly;
           .each_gague {
             max-height: 90px;
-            overflow: hidden;
+            /* overflow: hidden; */
             box-sizing: border-box;
           }
         }
@@ -209,7 +226,7 @@
         margin: 0 0 20px 0;
         border-radius: 5px;
         /* filter: drop-shadow(0px 0px 40px #86eefb99); */
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(10px);
         &.sunburst_chart {
           background-color: #51e2ff10;
           padding: 10px;
@@ -244,7 +261,7 @@
             flex-direction: column;
             .chart_title {
               color: #c7c7c7;
-              padding: 10px 0 10px 10px;
+              padding: 0px 0 10px 10px;
               font-size: 14px;
             }
             .inner_wrap {
@@ -254,6 +271,7 @@
       }
     }
   }
+
 }
 @keyframes alertPulse {
   0% {
