@@ -376,7 +376,7 @@ export default (props:any) => {
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
     dataSource
-      .loadUrl("/assets/population909500.json")
+      .loadUrl("./assets/population909500.json")
       .then(function () {});
 
     viewer.clock.shouldAnimate = true;
