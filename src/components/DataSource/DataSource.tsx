@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import "./DataSource.postcss";
 import { useWindowSize } from "usehooks-ts";
 import * as Cesium from "cesium";
-import darkStyleBingContrastGray from 'src/assets/imageryProviders/darkStyle-bingContrastGray.png'
 export default (props:any) => {
   const ele = useRef<HTMLDivElement>(null);
   const { scrollHeight } = props;
@@ -376,7 +375,7 @@ export default (props:any) => {
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
     dataSource
-      .loadUrl("/src/assets/population909500.json")
+      .loadUrl("src/assets/population909500.json")
       .then(function () {});
 
     viewer.clock.shouldAnimate = true;
