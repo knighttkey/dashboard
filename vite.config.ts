@@ -9,7 +9,7 @@ export default defineConfig({
 
   base: "./", //資源路徑改為相對
   build: {
-    outDir: "dist",
+    outDir: "./docs",
   },
   server: {
     host: "0.0.0.0",
