@@ -7,14 +7,12 @@ import cesium from "vite-plugin-cesium";
 export default defineConfig({
   plugins: [
     react(),
-    cesium({
-      rebuildCesium: true,
-    }),
+    cesium(),
   ],
 
   base: "./", //資源路徑改為相對
   build: {
-    outDir: "./docs",
+    outDir: "docs",
   },
   server: {
     host: "0.0.0.0",
