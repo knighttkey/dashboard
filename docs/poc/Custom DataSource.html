@@ -14,10 +14,10 @@
     />
     <title>Cesium Demo</title>
     <!-- <script type="text/javascript" src="../Sandcastle-header.js"></script> -->
-    <script
+    <!-- <script
       type="text/javascript"
       src="/Sandcastle/Sandcastle-header.js"
-    ></script>
+    ></script> -->
     <!-- <script src="../CesiumUnminified/Cesium.js"></script> -->
     <!-- <script>window.CESIUM_BASE_URL = "../CesiumUnminified/";</script> -->
     <script type="text/javascript" src="/CesiumUnminified/Cesium.js"></script>
@@ -28,7 +28,7 @@
   >
     <style>
       /* @import url(../templates/bucket.css); */
-      @import url(/CesiumUnminified/Widgets/widgets.css);
+      /* @import url(/CesiumUnminified/Widgets/widgets.css); */
       html,
       body {
         width: 100%;
@@ -460,7 +460,7 @@
         viewer.dataSources.add(dataSource);
         // console.log(' viewer.scene', viewer.scene)
         //Sandcastle_End
-        Sandcastle.finishedLoading();
+        // Sandcastle.finishedLoading();
       };
       if (typeof Cesium !== "undefined") {
         window.startupCalled = true;
