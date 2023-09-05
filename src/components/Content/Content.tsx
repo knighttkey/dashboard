@@ -205,8 +205,7 @@ export default () => {
               <HorizontalBarChart
                 labels={labelsList}
                 dataList={lineChartData2}
-                maxWidth={420}
-                maxHeight={220}
+                maxSize={420}
                 sizeDefine="relative"
                 padding={0}
                 bgShow={false}

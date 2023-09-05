@@ -1,0 +1,277 @@
+.content_another_container {
+  width: calc(100% - 0px);
+  height: calc(100% - 70px);
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: 0.3s;
+  /* z-index: 3; */
+  position: fixed;
+  top: 60px;
+  left: 0;
+  pointer-events: none;
+  &.small_content {
+    flex-direction: column;
+    .left {
+      min-width: unset;
+      padding: 15px;
+      box-sizing: border-box;
+      max-width: unset;
+      .switch_tab_row {
+        backdrop-filter: blur(10px);
+      }
+      .chart_area {
+        .each_chart {
+          backdrop-filter: blur(10px);
+        }
+      }
+    }
+    .right {
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      max-width: unset;
+      .chart_area {
+        .power_chart {
+          backdrop-filter: blur(10px);
+          .power_inner {
+            .each_gague {
+              transform: scale(0.7);
+              transform-origin: 0 center;
+            }
+          }
+        }
+        .each_chart {
+          backdrop-filter: blur(10px);
+        }
+      }
+    }
+  }
+  .left {
+    min-width: 500px;
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 15px 15px 15px 30px;
+    display: flex;
+    flex-direction: column;
+    /* filter: drop-shadow(0px 0px 40px #86eefb99); */
+    pointer-events: auto;
+
+    .switch_tab_row {
+      border: 1px solid #51e2ff50;
+      height: 50px;
+      min-height: 50px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 5px;
+      margin: 0 0 20px 0;
+      border-radius: 5px;
+      backdrop-filter: blur(20px);
+      .tab {
+        width: calc(100% / 3);
+        height: 100%;
+        /* border-right: 1px solid #c7c7c750; */
+        color: #fff;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 200;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background-color: #51e2ff80;
+          border-radius: 5px;
+          transition: 0.3s;
+        }
+        &:last-child {
+          border-right: none;
+        }
+        &.current {
+          background-color: #51e2ff50;
+          border-right: none;
+          color: #fff;
+          border-radius: 5px;
+          border-left: none;
+          transition: 0.3s;
+        }
+      }
+    }
+    .chart_area {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      .each_chart {
+        backdrop-filter: blur(20px);
+        background-color: #51e2ff10;
+        margin: 0 0 20px 0;
+        padding: 10px 10px 40px 10px;
+        /* filter: drop-shadow(0px 0px 40px #86eefb99); */
+        border-radius: 5px;
+        box-sizing: border-box;
+        &:last-child {
+          margin: 0;
+        }
+        .chart_title {
+          color: #c7c7c7;
+          padding: 0 0 10px 0;
+          font-size: 14px;
+        }
+        .bubble_container {
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
+  .right {
+    max-width: 440px;
+    padding: 15px 30px 15px 15px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    /* filter: drop-shadow(0px 0px 40px #86eefb99); */
+    .chart_area {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      /* background-color: #51e2ff10; */
+      /* padding: 10px; */
+      .power_chart {
+        background-color: #51e2ff10;
+        margin: 0 0 20px 0;
+        border-radius: 5px;
+        /* margin: 0 0 30px 0; */
+        box-sizing: border-box;
+        padding: 10px;
+        /* filter: drop-shadow(0px 0px 40px #86eefb99); */
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        &.alert {
+          position: relative;
+          /* animation: alertPulse 2s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335); */
+          /* animation: alertPulse 2s infinite cubic-bezier(0.55, 0.055, 0.675, 0.19); */
+          animation: alertPulse 2s infinite ease-in-out;
+          box-shadow: 0px 0px 10px #5fffb950;
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            /* animation: alertPulse 2.5s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335); */
+            /* animation: alertPulseBorder 2s infinite cubic-bezier(0.55, 0.055, 0.675, 0.19); */
+            animation: alertPulseBorder 2s infinite ease-in-out;
+            border-radius: 5px;
+            box-sizing: border-box;
+          }
+        }
+        .power_title {
+          color: #fff;
+          font-size: 12px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          box-sizing: border-box;
+          padding: 0 0 0 20px;
+          height: 20px;
+          align-items: center;
+          width: 100%;
+          .tip {
+            font-size: 10px;
+            color: #c7c7c750;
+            transform: scale(0.8);
+          }
+        }
+        .power_inner {
+          display: flex;
+          justify-content: space-around;
+
+          .each_gague {
+            max-height: 90px;
+            overflow: hidden;
+            box-sizing: border-box;
+          }
+        }
+      }
+      .each_chart {
+        background-color: #51e2ff10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 20px 0;
+        border-radius: 5px;
+        /* filter: drop-shadow(0px 0px 40px #86eefb99); */
+        backdrop-filter: blur(20px);
+        &.sunburst_chart {
+          background-color: #51e2ff10;
+          padding: 10px;
+          box-sizing: border-box;
+          border-radius: 5px;
+          flex-direction: column;
+          .chart_title {
+            color: #c7c7c7;
+            padding: 0 0 10px 0;
+            font-size: 14px;
+          }
+          .sunburst_chart_inner {
+            padding: 30px 0 0 0;
+            width: 100%;
+            background-color: #51e2ff10;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+          }
+        }
+        &.horizontal {
+          background-color: #51e2ff10;
+          padding: 10px;
+          box-sizing: border-box;
+          border-radius: 5px;
+          flex-direction: column;
+          width: 100%;
+          .horizontal_chart {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            flex-direction: column;
+            .chart_title {
+              color: #c7c7c7;
+              padding: 10px 0 10px 10px;
+              font-size: 14px;
+            }
+            .inner_wrap {
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@keyframes alertPulse {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.02, 1.05);
+  }
+}
+@keyframes alertPulseBorder {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.02, 1.05);
+    box-shadow: 0px 0px 20px #5fffb950;
+  }
+  90% {
+    transform: scale(1.02, 1.05);
+  }
+}

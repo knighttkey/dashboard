@@ -2,6 +2,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
   &.small_header {
     .title {
       width: 80%;
@@ -19,6 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
     /* overflow: hidden; */
     /* perspective-origin:center 0%; */
     .title_text {
@@ -69,6 +75,7 @@
           border-top: none;
           border-right: none;
           background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, #51e2ff75 50%, rgba(255,255,255,0) 100%);
+          backdrop-filter: blur(5px);
           /* border-radius: 0 0 8px 8px; */
         }
       }

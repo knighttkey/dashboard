@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import MainLayout from './MainLayout.tsx'
+// import MainLayout from './MainLayout.tsx'
+import AnotherLayout from './AnotherLayout.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <MainLayout />
+    {/* <MainLayout /> */}
+    <AnotherLayout />
   </React.StrictMode>,
 )

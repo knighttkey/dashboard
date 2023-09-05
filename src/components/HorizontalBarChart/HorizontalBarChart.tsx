@@ -28,8 +28,7 @@ interface HorizontalBarChartProps {
     data: number[]; //個別數據陣列
     color: string; //長條底色
   }[];
-  maxWidth: number | string; //圖表最大尺寸
-  maxHeight: number | string; //圖表最大尺寸
+  maxSize: number | string; //圖表最大尺寸
   sizeDefine: string; //尺寸選擇絕對或相對單位
   padding: number; //內間距
   bgShow?: boolean; //背景顯示與否
@@ -60,9 +59,8 @@ export default (props: HorizontalBarChartProps) => {
   const {
     labels,
     dataList,
-    maxWidth,
-    maxHeight,
-    // sizeDefine,
+    maxSize,
+    sizeDefine,
     padding,
     bgShow,
     bgHalo,
@@ -131,8 +129,12 @@ export default (props: HorizontalBarChartProps) => {
     <div
       className="horizontal_bar_container"
       style={{
-        width: `${maxWidth}px`,
-        height: `${maxHeight}px`,
+        width: `${sizeDefine === "absolute" ? maxSize + "px" : maxSize}`,
+        height: `${
+          sizeDefine === "absolute"
+            ? (maxSize as number) * 0.55 + "px"
+            : maxSize
+        }`,
         padding: `${padding}px`,
         background: `${
           bgShow
