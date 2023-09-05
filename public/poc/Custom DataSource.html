@@ -21,10 +21,10 @@
     <!-- <script src="../CesiumUnminified/Cesium.js"></script> -->
     <!-- <script>window.CESIUM_BASE_URL = "../CesiumUnminified/Cesium.js";</script> -->
     <!-- <script type="text/javascript" src="/cesium/Cesium.js"></script> -->
-    <script type="text/javascript" src="/CesiumUnminified/Cesium.js"></script>
+    <script type="text/javascript" src="./../CesiumUnminified/Cesium.js"></script>
     <script
     type="text/javascript"
-    src="/Sandcastle/Sandcastle-header.js"
+    src="./../Sandcastle/Sandcastle-header.js"
   ></script>
     <!-- <script type="module" src="./../../node_modules/cesium"></script> -->
   </head>
@@ -34,7 +34,7 @@
   >
     <style>
       /* @import url(../templates/bucket.css); */
-      @import url(/CesiumUnminified/Widgets/widgets.css);
+      @import url(./../CesiumUnminified/Widgets/widgets.css);
       html,
       body {
         width: 100%;
@@ -432,7 +432,7 @@
         //any JSON data formatted for WebGL Globe.
         const dataSource = new WebGLGlobeDataSource();
         dataSource
-          .loadUrl("../SampleData/population909500.json")
+          .loadUrl("./../SampleData/population909500.json")
           .then(function () {
             //After the initial load, create buttons to let the user switch among series.
             function createSeriesSetter(seriesName) {
@@ -455,7 +455,7 @@
           timeline: false,
         });
         let tmsProvider = new Cesium.SingleTileImageryProvider({
-          url: "../SampleData/night_dark_pic.png",
+          url: "./../SampleData/night_dark_pic.png",
         });
         viewer.imageryLayers.addImageryProvider(tmsProvider);
 
