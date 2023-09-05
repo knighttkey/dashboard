@@ -278,6 +278,7 @@ export default (props:any) => {
      * @param {Array} data The object to be processed.
      */
     WebGLGlobeDataSource.prototype.load = function (data) {
+      console.log('___data', data)
       //>>includeStart('debug', pragmas.debug);
       if (!Cesium.defined(data)) {
         throw new Cesium.DeveloperError("data is required.");
@@ -375,7 +376,7 @@ export default (props:any) => {
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
     dataSource
-      .loadUrl("src/assets/population909500.json")
+      .loadUrl("/src/assets/population909500.json")
       .then(function () {});
 
     viewer.clock.shouldAnimate = true;
