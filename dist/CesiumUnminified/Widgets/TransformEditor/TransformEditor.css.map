@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../Source/Widgets/TransformEditor/TransformEditor.css"],
-  "sourcesContent": [".transform-editor-menu {\n  position: absolute;\n  stroke: none;\n  fill: #edffff;\n}\n\n.transform-editor-button {\n  padding: 0;\n  width: 25px;\n  height: 25px;\n  border-radius: 13px;\n}\n\n.transform-editor-button > svg {\n  margin-top: 2px;\n  margin-left: 2px;\n}\n\n.transform-editor-options {\n  position: relative;\n  left: -16px;\n  background-color: #303336;\n  color: #edffff;\n}\n\n.transform-editor-button-row > div {\n  display: inline-block;\n  cursor: pointer;\n  padding-top: 4px;\n  padding-left: 4px;\n  width: 30px;\n  height: 30px;\n  border: 1px solid #444;\n}\n\n.transform-editor-button-row > div.selected {\n  background-color: #1e90ff;\n}\n\n.transform-editor-button-row > div:hover {\n  background-color: #48b;\n}\n"],
-  "mappings": ";AAAA;AACE;AACA;AACA;AAAA;AAGF;AACE;AACA;AACA;AACA;AAAA;AAGF;AACE;AACA;AAAA;AAGF;AACE;AACA;AACA;AACA;AAAA;AAGF;AACE;AACA;AACA;AACA;AACA;AACA;AACA;AAAA;AAGF;AACE;AAAA;AAGF;AACE;AAAA;",
-  "names": []
-}
