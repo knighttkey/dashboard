@@ -1,9 +1,10 @@
 import "./AnotherLayout.postcss";
-import DataPopulation from "./components/DataPopulation";
+// import DataPopulation from "./components/DataPopulation";
 // import DataTransfer from "./components/DataTransfer";
 import { useWindowSize } from "usehooks-ts";
 import { useRef, useEffect, useState } from "react";
 import ContentAnother from "./components/ContentAnother";
+import DataSource from "./components/DataSource";
 import Header from "./components/Header";
 
 export default () => {
@@ -22,7 +23,8 @@ export default () => {
       }`}
       ref={anotherRef}
     >
-      <DataPopulation scrollHeight={scrollHeight} />
+      {/* <DataPopulation scrollHeight={scrollHeight} /> */}
+      <DataSource scrollHeight={scrollHeight}/>
       {/* <DataTransfer/> */}
       <Header />
       <ContentAnother />
