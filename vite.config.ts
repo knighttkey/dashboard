@@ -5,7 +5,12 @@ import cesium from "vite-plugin-cesium";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), cesium()],
+  plugins: [
+    react(),
+    cesium({
+      rebuildCesium: true,
+    }),
+  ],
 
   base: "./", //資源路徑改為相對
   build: {
