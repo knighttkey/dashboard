@@ -1,21 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import postcssNesting from 'postcss-nesting'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import postcssNesting from "postcss-nesting";
 import cesium from "vite-plugin-cesium";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(),
-    cesium({
-      rebuildCesium: true,
-    }),],
+  plugins: [react(), cesium()],
 
-  base: './',  //資源路徑改為相對
+  base: "./", //資源路徑改為相對
   build: {
-    outDir: './docs'
+    outDir: "./docs",
   },
   server: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 9001,
   },
   css: {
@@ -23,4 +20,4 @@ export default defineConfig({
       plugins: [postcssNesting],
     },
   },
-})
+});
