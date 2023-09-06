@@ -66,7 +66,8 @@ export default (props: HorizontalBarChartProps) => {
     bgHalo,
     theme,
   } = props;
-  // console.log('sizeDefine', sizeDefine)
+  console.log('sizeDefine', sizeDefine)
+  console.log('maxSize', maxSize)
   
   const options: ChartOptions = {
     indexAxis: "y" as const,
