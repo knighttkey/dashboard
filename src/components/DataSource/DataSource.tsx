@@ -28,7 +28,7 @@ export default (props: any) => {
 
     const addImg = async () => {
       let tmsProvider = await Cesium.SingleTileImageryProvider.fromUrl(
-        "./../night_dark_pic.png"
+        "night_dark_pic.png"
       );
       console.log("tmsProvider", tmsProvider);
       viewer.imageryLayers.addImageryProvider(tmsProvider);
@@ -383,7 +383,7 @@ export default (props: any) => {
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
     dataSource
-      .loadUrl("./../population909500.json")
+      .loadUrl("population909500.json")
       .then(function () {});
 
     viewer.clock.shouldAnimate = true;
