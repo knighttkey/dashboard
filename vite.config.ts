@@ -4,9 +4,9 @@ import postcssNesting from "postcss-nesting";
 import cesium from "vite-plugin-cesium";
 import { resolve } from 'path'
 console.log('__dirname', __dirname)
-const input = {
-  index: resolve(__dirname, 'index.html'),
-}
+// const input = {
+//   index: resolve(__dirname, 'index.html'),
+// }
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -17,9 +17,9 @@ export default defineConfig({
   base: "./", //資源路徑改為相對
   build: {
     outDir: "docs",
-    rollupOptions: {
-      input,
-    },
+    // rollupOptions: {
+    //   input,
+    // },
   },
   server: {
     host: "0.0.0.0",
