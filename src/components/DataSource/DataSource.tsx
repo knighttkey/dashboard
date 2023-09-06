@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import "./DataSource.postcss";
 import { useWindowSize } from "usehooks-ts";
 import * as Cesium from "cesium";
-export default (props:any) => {
+export default (props: any) => {
   const ele = useRef<HTMLDivElement>(null);
   const { scrollHeight } = props;
   const { height: windowHeight, width: windowWidth } = useWindowSize();
@@ -25,8 +25,15 @@ export default (props:any) => {
     // let tmsProvider = new SingleTileImageryProvider({
     //   url: "/src/assets/night_dark_pic.png",
     // });
-    // console.log('tmsProvider', tmsProvider)
-    // viewer.imageryLayers.addImageryProvider(tmsProvider);
+
+    const addImg = async () => {
+      let tmsProvider = await Cesium.SingleTileImageryProvider.fromUrl(
+        "/night_dark_pic.png"
+      );
+      console.log("tmsProvider", tmsProvider);
+      viewer.imageryLayers.addImageryProvider(tmsProvider);
+    };
+    addImg();
 
     viewer.clock.shouldAnimate = true;
     viewer.clock.onTick.addEventListener(function (clock) {
@@ -54,17 +61,17 @@ export default (props:any) => {
       //All public configuration is defined as ES5 properties
       //These are just the "private" variables and their defaults.
       this as {
-        _name:string
-        _changed:Cesium.Event
-        _error:Cesium.Event
-        _isLoading:boolean
-        _loading:boolean
-        _entityCollection:Cesium.EntityCollection
-        _seriesNames:[]
-        _seriesToDisplay:undefined
-        _heightScale:number
-        _entityCluster: Cesium.EntityCluster
-      }
+        _name: string;
+        _changed: Cesium.Event;
+        _error: Cesium.Event;
+        _isLoading: boolean;
+        _loading: boolean;
+        _entityCollection: Cesium.EntityCollection;
+        _seriesNames: [];
+        _seriesToDisplay: undefined;
+        _heightScale: number;
+        _entityCluster: Cesium.EntityCluster;
+      };
       this._name = name;
       this._changed = new Cesium.Event();
       this._error = new Cesium.Event();
@@ -242,7 +249,7 @@ export default (props:any) => {
      * @param {object} url The url to be processed.
      * @returns {Promise} a promise that will resolve when the GeoJSON is loaded.
      */
-    WebGLGlobeDataSource.prototype.loadUrl = function (url:string) {
+    WebGLGlobeDataSource.prototype.loadUrl = function (url: string) {
       if (!Cesium.defined(url)) {
         throw new Cesium.DeveloperError("url is required.");
       }
@@ -278,7 +285,7 @@ export default (props:any) => {
      * @param {Array} data The object to be processed.
      */
     WebGLGlobeDataSource.prototype.load = function (data) {
-      console.log('___data', data)
+      console.log("___data", data);
       //>>includeStart('debug', pragmas.debug);
       if (!Cesium.defined(data)) {
         throw new Cesium.DeveloperError("data is required.");
@@ -376,7 +383,7 @@ export default (props:any) => {
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
     dataSource
-      .loadUrl("./assets/population909500.json")
+      .loadUrl("/SampleData/population909500.json")
       .then(function () {});
 
     viewer.clock.shouldAnimate = true;
@@ -386,13 +393,20 @@ export default (props:any) => {
     viewer.dataSources.add(dataSource);
   }, []);
 
-  return <div id="cesiumContainer" className="fullSize" style={{
-    width: "100%",
-    height:
-      windowWidth > 800
-        ? windowHeight + "px"
-        : scrollHeight
-        ? scrollHeight + "px"
-        : "100vh",
-  }} ref={ele}></div>;
+  return (
+    <div
+      id="cesiumContainer"
+      className="fullSize"
+      style={{
+        width: "100%",
+        height:
+          windowWidth > 800
+            ? windowHeight + "px"
+            : scrollHeight
+            ? scrollHeight + "px"
+            : "100vh",
+      }}
+      ref={ele}
+    ></div>
+  );
 };
