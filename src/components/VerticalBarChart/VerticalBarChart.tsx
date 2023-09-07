@@ -85,7 +85,7 @@ export default (props: VerticalBarChartProps) => {
       },
     },
     plugins: {
-      legend: false,
+      legend: true,
     },
     borderRadius: 2,
     inflateAmount:-1

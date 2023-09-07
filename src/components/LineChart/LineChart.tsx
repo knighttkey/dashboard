@@ -96,7 +96,7 @@ export default (props: LineChartProps) => {
       },
     },
     plugins: {
-      legend: false,
+      legend: true,
     },
     // pointRadius:3
     pointStyle: false,

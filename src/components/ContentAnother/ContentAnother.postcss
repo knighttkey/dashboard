@@ -39,13 +39,12 @@
           .power_inner {
             .each_gague {
               /* transform: scale(0.7); */
-              /* transform-origin: 0 center; */ 
+              /* transform-origin: 0 center; */
               .gauge_container {
-                >div {
+                > div {
                   /* max-height: 80px; */
                   /* max-width: 120px; */
                 }
-
               }
             }
           }
@@ -268,10 +267,31 @@
             }
           }
         }
+        &.liquid_fill {
+          background-color: #51e2ff10;
+          padding: 10px;
+          box-sizing: border-box;
+          border-radius: 5px;
+          flex-direction: column;
+          width: 100%;
+          /* .liquid_inner {
+            transform: scaleX(2);
+            .liquid_fill_container {
+              > div {
+                > svg {
+                  > g {
+                    > text {
+                      transform: scaleY(2);
+                    }
+                  }
+                }
+              }
+            }
+          } */
+        }
       }
     }
   }
-
 }
 @keyframes alertPulse {
   0% {
