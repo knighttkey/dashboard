@@ -509,10 +509,10 @@ export default (props: any) => {
       >
         <div className="switch_btn_inner"></div>
         <div className="switch_btn_bg">
-          <div className={`switch_btn_bg_middle ${!show ? "current" : ""}`}>
+          <div className={`switch_btn_bg_middle ${show ? "current" : ""}`}>
             <div className="switch_btn_bg_inner">
-              {!show && <div className={`left_text`}>show</div>}
-              {show && <div className={`right_text`}>hide</div>}
+              {!show && <div className={`left_text`}>hide</div>}
+              {show && <div className={`right_text`}>video</div>}
             </div>
           </div>
         </div>
