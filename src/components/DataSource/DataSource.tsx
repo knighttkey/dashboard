@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./DataSource.postcss";
 import { useWindowSize } from "usehooks-ts";
 import * as Cesium from "cesium";
@@ -7,6 +7,8 @@ export default (props: any) => {
   const ele = useRef<HTMLDivElement>(null);
   const { scrollHeight } = props;
   const { height: windowHeight, width: windowWidth } = useWindowSize();
+  const [viewerObj, setViewerObj] = useState<Cesium.Viewer>();
+  const [cameraObj, setCameraObj] = useState<Cesium.Camera>();
   useEffect(() => {
     if (!ele || !ele.current) return;
     const cesiumViewerInEle = ele.current.querySelector(".cesium-viewer");
@@ -35,10 +37,10 @@ export default (props: any) => {
     };
     addImg();
 
-    viewer.clock.shouldAnimate = true;
-    viewer.clock.onTick.addEventListener(function (clock) {
-      viewer.scene.camera.rotateRight(0.001);
-    });
+    // viewer.clock.shouldAnimate = true;
+    // viewer.clock.onTick.addEventListener(function (clock) {
+    //   viewer.scene.camera.rotateRight(0.001);
+    // });
     // window.startup = async function (Cesium) {
     //   "use strict";
     //Sandcastle_Begin
@@ -382,31 +384,165 @@ export default (props: any) => {
     //any JSON data formatted for WebGL Globe.
     const dataSource = new WebGLGlobeDataSource();
     console.log("dataSource", dataSource);
-    dataSource
-      .loadUrl("population909500.json")
-      .then(function () {});
+    dataSource.loadUrl("population909500.json").then(function () {});
 
     viewer.clock.shouldAnimate = true;
     viewer.clock.onTick.addEventListener(function (clock) {
       viewer.scene.camera.rotateRight(0.001);
     });
     viewer.dataSources.add(dataSource);
+    setViewerObj(viewer);
+    let camera = new Cesium.Camera(viewer.scene);
+    setCameraObj(camera);
+    // getStreaming();
+    flyToPosition(props, camera);
+    addBillboardAndRectangle(viewer);
+    console.log("viewer.entities", viewer.entities);
   }, []);
 
+  const mediaStreamConstraints = {
+    video: true,
+  };
+  interface FlyToPositionProps {
+    position: {
+      longitude: number;
+      latitude: number;
+      altitude: number;
+    };
+    duration: number;
+    cameraHeight?: number;
+    flightCompleteCallback?: () => void;
+  }
+  // const getStreaming = () => {
+  //   let source;
+  //   let aaad = navigator.mediaDevices
+  //     .getUserMedia(mediaStreamConstraints)
+  //     .then((mediaStream) => {
+  //       const videoEle = document.getElementById("video") as HTMLVideoElement;
+  //       if (!videoEle) return;
+  //       videoEle.srcObject = mediaStream;
+  //       source = mediaStream;
+  //     });
+  //   return source;
+  // };
+  interface BasicResponseProps {
+    executionSucceed: boolean;
+    message: string;
+  }
+  const flyToPosition = (
+    props: FlyToPositionProps,
+    camera: Cesium.Camera
+  ): BasicResponseProps => {
+    try {
+      const up =
+        props.cameraHeight && props.cameraHeight > 0
+          ? props.cameraHeight
+          : 2000;
+      const position = Cesium.Cartesian3.fromDegrees(
+        props.position.longitude,
+        props.position.latitude - up * 0.000013,
+        props.position.altitude + up
+      );
+
+      if (camera && position) {
+        camera.flyTo({
+          destination: position,
+          duration: props.duration | 2.8,
+          orientation: {},
+          complete: props.flightCompleteCallback,
+        });
+      }
+      return { executionSucceed: true, message: "" };
+    } catch (error) {
+      return { executionSucceed: false, message: error as string };
+    }
+  };
+  const createRectLocation = (siteItem: { lon: number; lat: number }) => {
+    return Cesium.Rectangle.fromDegrees(
+      siteItem.lon,
+      siteItem.lat,
+      siteItem.lon + 16,
+      siteItem.lat + 9
+    );
+  };
+  function addBillboardAndRectangle(viewer: Cesium.Viewer) {
+    var videoElement = document.getElementById("video");
+    let siteList = [
+      { lon: 121.50952, lat: 25.03219 },
+      { lon: 0.50952, lat: 15.03219 },
+      { lon: 126.41767, lat: -23.87159 },
+      { lon: -107.34737, lat: 42.38484 },
+      { lon: -59.73641, lat: -9.06274 },
+      { lon: 19.35759, lat: 50.33348 },
+    ];
+    siteList.forEach((siteItem) => {
+      viewer.entities.add({
+        position: Cesium.Cartesian3.fromDegrees(siteItem.lon, siteItem.lat),
+        rectangle: {
+          coordinates: createRectLocation(siteItem),
+          height: 0,
+          material: videoElement as unknown as Cesium.MaterialProperty,
+          outline: false,
+        },
+      });
+    });
+  }
+  const [show, setShow] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!viewerObj) return;
+    viewerObj.entities.show = show;
+  }, [show]);
+
   return (
-    <div
-      id="cesiumContainer"
-      className="fullSize"
-      style={{
-        width: "100%",
-        height:
-          windowWidth > 800
-            ? windowHeight + "px"
-            : scrollHeight
-            ? scrollHeight + "px"
-            : "100vh",
-      }}
-      ref={ele}
-    ></div>
+    <div className="marker_demo">
+      {/* <button
+        style={{ position: "fixed", top: "0px", right: "0px", zIndex: 10 }}
+        onClick={() => setShow(!show)}
+      >
+        {show ? "hide" : "show"}
+      </button> */}
+
+      <div
+        className={`switch_btn right_switch_btn ${windowWidth <= 800 ? "small" : ""}`}
+        onClick={() => setShow(!show)}
+      >
+        <div className="switch_btn_inner"></div>
+        <div className="switch_btn_bg">
+          <div className={`switch_btn_bg_middle ${!show ? "current" : ""}`}>
+            <div className="switch_btn_bg_inner">
+              {!show && <div className={`left_text`}>show</div>}
+              {show && <div className={`right_text`}>hide</div>}
+            </div>
+          </div>
+        </div>
+      </div>
+      <video
+        id="video"
+        width="280"
+        height="200"
+        className="video_tag"
+        crossOrigin="anonymous"
+        preload="metadata"
+        autoPlay={true}
+        muted={true}
+      >
+        <source src="videoStream.mp4" type="video/mp4"></source>
+      </video>
+      <div
+        id="cesiumContainer"
+        className="fullSize"
+        style={{
+          width: "100%",
+          height:
+            windowWidth > 800
+              ? windowHeight + "px"
+              : scrollHeight
+              ? scrollHeight + "px"
+              : "100vh",
+        }}
+        ref={ele}
+      ></div>
+    </div>
   );
 };
