@@ -1,5 +1,5 @@
 import "./ContentAnother.postcss";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { faker } from "@faker-js/faker";
 import LineChart from "./../LineChart";
 import VerticalBarChart from "./../VerticalBarChart";
@@ -110,6 +110,22 @@ export default () => {
     },
   ];
 
+
+  const renderLineChart = useMemo(() => {
+    return (
+      <LineChart
+      labels={labelsList}
+      dataList={lineChartData1}
+      maxSize={"100%"}
+      sizeDefine="relative"
+      padding={0}
+      bgShow={false}
+      bgHalo={false}
+      theme="dark"
+    />
+
+    )
+  }, [windowWidth]);
   return (
     <div
       className={`content_another_container  ${
@@ -134,16 +150,7 @@ export default () => {
         <div className="chart_area">
           <div className="each_chart">
             <div className="chart_title">Power Consumption</div>
-            <LineChart
-              labels={labelsList}
-              dataList={lineChartData1}
-              maxSize={"100%"}
-              sizeDefine="relative"
-              padding={0}
-              bgShow={false}
-              bgHalo={false}
-              theme="dark"
-            />
+            {renderLineChart}
           </div>
           <div className="each_chart">
             <div className="chart_title">Water Consumption</div>

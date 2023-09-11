@@ -457,27 +457,27 @@ export default (props: any) => {
       return { executionSucceed: false, message: error as string };
     }
   };
-  const createRectLocation = (siteItem: { lon: number; lat: number }) => {
+  const createRectLocation = (siteItem: { lng: number; lat: number }) => {
     return Cesium.Rectangle.fromDegrees(
-      siteItem.lon,
+      siteItem.lng,
       siteItem.lat,
-      siteItem.lon + 16,
+      siteItem.lng + 16,
       siteItem.lat + 9
     );
   };
   function addBillboardAndRectangle(viewer: Cesium.Viewer) {
     var videoElement = document.getElementById("video");
     let siteList = [
-      { lon: 121.50952, lat: 25.03219 },
-      { lon: 0.50952, lat: 15.03219 },
-      { lon: 126.41767, lat: -23.87159 },
-      { lon: -107.34737, lat: 42.38484 },
-      { lon: -59.73641, lat: -9.06274 },
-      { lon: 19.35759, lat: 50.33348 },
+      { lng: 121.50952, lat: 25.03219 },
+      { lng: 0.50952, lat: 15.03219 },
+      { lng: 126.41767, lat: -23.87159 },
+      { lng: -107.34737, lat: 42.38484 },
+      { lng: -59.73641, lat: -9.06274 },
+      { lng: 19.35759, lat: 50.33348 },
     ];
     siteList.forEach((siteItem) => {
       viewer.entities.add({
-        position: Cesium.Cartesian3.fromDegrees(siteItem.lon, siteItem.lat),
+        position: Cesium.Cartesian3.fromDegrees(siteItem.lng, siteItem.lat),
         rectangle: {
           coordinates: createRectLocation(siteItem),
           height: 0,
@@ -486,8 +486,9 @@ export default (props: any) => {
         },
       });
     });
+    viewer.entities.show = false;
   }
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
 
   useEffect(() => {
     if (!viewerObj) return;

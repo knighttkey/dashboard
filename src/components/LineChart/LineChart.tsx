@@ -45,7 +45,65 @@ export default (props: LineChartProps) => {
     theme,
   } = props;
   // console.log('dataList', dataList)
-
+  const lineChartPluginLine = {
+    id: 'line_chart_horizontal_line',
+    beforeDraw: function (chartInstance: ChartJS) {
+      // var yScale = chartInstance.scales['y-axis-0']
+      var yScale = chartInstance.scales.y
+      let xScale = chartInstance.scales.x
+      if(!yScale || !xScale) return
+      let lineWidth = xScale.right
+      let canvas = chartInstance.canvas
+      let ctx = chartInstance.ctx as CanvasRenderingContext2D
+      let yValue
+      let index
+      let line
+      let style
+      let offsetWidth = canvas.offsetWidth
+      let options = chartInstance.options as unknown as { horizontalLine: [] }
+      let horizontalLine = options.horizontalLine
+      if (horizontalLine) {
+        for (index = 0; index < horizontalLine.length; index++) {
+          line = horizontalLine[index] as unknown as { style: string; y: number; x: number; text: string }
+          if (!line.style) {
+            style = 'rgba(169,169,169, .6)'
+          } else {
+            style = line.style
+          }
+          if (line.y) {
+            yValue = yScale.getPixelForValue(line.y)
+          } else {
+            yValue = 0
+          }
+          ctx.lineWidth = 0.5
+          if (yValue) {
+            ctx.beginPath()
+            ctx.setLineDash([5, 3])
+            ctx.moveTo(0, yValue)
+            ctx.lineTo(offsetWidth, yValue)
+            ctx.strokeStyle = style
+            ctx.stroke()
+          }
+          if (line.text) {
+            // console.log('yValue + ctx.lineWidth', yValue + ctx.lineWidth)
+            ctx.fillStyle = style
+            ctx.font = '12px Kiwi Maru'
+            switch (line.text) {
+              case 'max':
+                ctx.fillText(line.text, lineWidth - 20, yValue + ctx.lineWidth - 12)
+                break
+              case 'min':
+                ctx.fillText(line.text, lineWidth - 20, yValue + ctx.lineWidth + 10)
+                break
+              default:
+                break
+            }
+          }
+        }
+        return
+      }
+    },
+  }
   ChartJS.register(
     LinearScale,
     CategoryScale,
@@ -53,8 +111,10 @@ export default (props: LineChartProps) => {
     PointElement,
     LineElement,
     Legend,
-    Tooltip
+    Tooltip,
+    // lineChartPluginLine
   );
+  ChartJS.register(lineChartPluginLine)
   interface ChartOptions {
     scales: {
       y: { max: number; min: number } | {};
@@ -69,6 +129,7 @@ export default (props: LineChartProps) => {
         tension: number;
       };
     };
+    horizontalLine: { y: number; style: string; text: string }[]
   }
   const options: ChartOptions = {
     scales: {
@@ -86,7 +147,7 @@ export default (props: LineChartProps) => {
       },
       x: {
         grid: {
-          color: "false",
+          color: "#fff",
           lineWidth: 1,
           display: false,
         },
@@ -97,6 +158,8 @@ export default (props: LineChartProps) => {
     },
     plugins: {
       legend: true,
+      line_chart_horizontal_line: true,
+      bar_chart_horizontal_line: false,
     },
     // pointRadius:3
     pointStyle: false,
@@ -105,7 +168,23 @@ export default (props: LineChartProps) => {
         tension: 0.3,
       },
     },
+    horizontalLine: [
+      {
+        y: getMaxAndMin(dataList).max,
+        style: '#c7c7c7',
+        text: 'max',
+      },
+      {
+        y: getMaxAndMin(dataList).min,
+        style: '#c7c7c7',
+        text: 'min',
+      },
+    ],
   };
+
+
+
+
 
   if (window.matchMedia("(prefers-color-scheme: light)").matches) {
     ChartJS.defaults.color = "#ffffff";
