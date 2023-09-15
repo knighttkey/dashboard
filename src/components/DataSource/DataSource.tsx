@@ -40,7 +40,7 @@ export default (props: any) => {
       let tmsProvider = await Cesium.SingleTileImageryProvider.fromUrl(
         "night_dark_pic.png"
       );
-      console.log("tmsProvider", tmsProvider);
+      // console.log("tmsProvider", tmsProvider);
       viewer.imageryLayers.addImageryProvider(tmsProvider);
     };
     addImg();
@@ -295,7 +295,7 @@ export default (props: any) => {
      * @param {Array} data The object to be processed.
      */
     WebGLGlobeDataSource.prototype.load = function (data) {
-      console.log("___data", data);
+      // console.log("___data", data);
       //>>includeStart('debug', pragmas.debug);
       if (!Cesium.defined(data)) {
         throw new Cesium.DeveloperError("data is required.");
@@ -568,9 +568,18 @@ export default (props: any) => {
         },
       });
     });
+    // viewer.entities.add({
+    //   position: Cesium.Cartesian3.fromDegrees(siteItem.lng, siteItem.lat),
+    //   rectangle: {
+    //     coordinates: createRectLocation(siteItem),
+    //     height: 0,
+    //     material: videoElement as unknown as Cesium.MaterialProperty,
+    //     outline: false,
+    //   },
+    // });
     viewer.entities.show = false;
   }
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
 
   const [play, setPlay] = useState<boolean>(true);
   useEffect(() => {
