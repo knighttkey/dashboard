@@ -23,7 +23,36 @@ body {
     .switch_btn_bg {
       transform: skew(-20deg) translateX(10px);
       .switch_btn_bg_middle {
+        &.current {
+          .switch_btn_bg_inner {
+            transform: translateX(0%);
+            background-color: #51e2ff50;
+          }
+        }
         .switch_btn_bg_inner {
+          transform: translateX(100%);
+          .left_text,
+          .right_text {
+            transform: skew(20deg) translateX(0);
+          }
+        }
+      }
+    }
+  }
+  &.animation_toggle {
+    left: unset;
+    right: 200px;
+    .switch_btn_bg {
+      transform: skew(-20deg) translateX(10px);
+      .switch_btn_bg_middle {
+        &.current_animation {
+          .switch_btn_bg_inner {
+            transform: translateX(0%);
+            background-color: #51e2ff50;
+          }
+        }
+        .switch_btn_bg_inner {
+          transform: translateX(100%);
           .left_text,
           .right_text {
             transform: skew(20deg) translateX(0);

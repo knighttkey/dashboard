@@ -3,12 +3,16 @@ import { useEffect, useRef, useState } from "react";
 import "./DataSource.postcss";
 import { useWindowSize } from "usehooks-ts";
 import * as Cesium from "cesium";
+import CesiumHandlers from './../../tools/cesiumHandlers'
+import markerCreater from './../../tools/streamMarkerCreater'
 export default (props: any) => {
   const ele = useRef<HTMLDivElement>(null);
   const { scrollHeight } = props;
   const { height: windowHeight, width: windowWidth } = useWindowSize();
   const [viewerObj, setViewerObj] = useState<Cesium.Viewer>();
   const [cameraObj, setCameraObj] = useState<Cesium.Camera>();
+  const handlersRef = useRef<CesiumHandlers>() /* viewer 處理物件實體 */
+  const [handlerInstance, setHandlerInstance] = useState<CesiumHandlers>();
   useEffect(() => {
     if (!ele || !ele.current) return;
     const cesiumViewerInEle = ele.current.querySelector(".cesium-viewer");
@@ -23,6 +27,10 @@ export default (props: any) => {
       navigationHelpButton: false,
       fullscreenButton: false,
     });
+
+    const handler = new CesiumHandlers(viewer)
+    handlersRef.current = handler
+    setHandlerInstance(handler)
     // Cesium.Ion.defaultAccessToken = "";
     // let tmsProvider = new SingleTileImageryProvider({
     //   url: "/src/assets/night_dark_pic.png",
@@ -387,17 +395,91 @@ export default (props: any) => {
     dataSource.loadUrl("population909500.json").then(function () {});
 
     viewer.clock.shouldAnimate = true;
-    viewer.clock.onTick.addEventListener(function (clock) {
-      viewer.scene.camera.rotateRight(0.001);
-    });
+    // viewer.clock.onTick.addEventListener(function (clock) {
+    //   viewer.scene.camera.rotateRight(0.001);
+    //   console.log('viewer.scene.camera', viewer.scene.camera)
+    // });
+    const center = new Cesium.Cartesian3(0, 0, 0)
+    handler.autoRotation = true
+    handler.cameraOrbitPointController(center, 15000000)
     viewer.dataSources.add(dataSource);
     setViewerObj(viewer);
     let camera = new Cesium.Camera(viewer.scene);
     setCameraObj(camera);
     // getStreaming();
-    flyToPosition(props, camera);
+    // flyToPosition(props, camera);
     addBillboardAndRectangle(viewer);
     console.log("viewer.entities", viewer.entities);
+    //-------------------------------------------------
+    // const markerList = [
+    //   {
+    //     type: "red",
+    //     title:
+    //       "廣州市，通稱廣州，簡稱廣或穗，別稱羊城、花城、仙城，是中華人民共和國廣東省省會、副省級市、首批沿海開放城市。廣州市為中國大陸和廣東對外的商貿中心兼綜合交通樞紐，是中國大陸的一線城市之一，也是粵港澳大灣區的中心城市之一，中國人民解放軍南部戰區聯合指揮部亦駐紮該地。",
+    //     format: "",
+    //     pos: {
+    //       longitude: 113.26020100862026,
+    //       latitude: 23.136446985290693,
+
+    //     },
+    //     slopeLevel: 0,
+    //   },
+    //   {
+    //     type: "green",
+    //     title:
+    //       "那霸市位於沖繩本島南部西海岸，是沖繩縣縣廳所在地和琉球列島人口最多城市。那霸市是沖繩縣的政治、經濟、文化中心，並且擁有國際機場那霸機場和連接沖繩縣外及附近離島的那霸港，是沖繩縣的玄關。那霸市是日本都道府縣廳所在地城市中面積最小的城市，也是日本首都圈和近畿圈之外人口密度最高的地區。",
+    //     format: "",
+    //     pos: {
+    //       longitude: 127.67528598449887,
+    //       latitude: 26.196476986336886,
+    //     },
+    //     slopeLevel: 0,
+    //   },
+    //   {
+    //     type: "green",
+    //     title: "國父紀念館。1972 年建的多用途建築，用於紀念孫中山，並提供文教課程",
+    //     format: "",
+    //     pos: {
+    //       longitude: 121.55993223826923,
+    //       latitude: 25.039543859796566,
+    //     },
+    //     slopeLevel: 0,
+    //   },
+    //   {
+    //     type: "yellow",
+    //     title: "台南市",
+    //     format: "",
+    //     pos: {
+    //       longitude: 120.20459195643882,
+    //       latitude: 23.00087377743533,
+    //       altitude: 0,
+    //     },
+    //     slopeLevel: 2,
+    //   },
+    //   {
+    //     type: "red",
+    //     title: "高雄市",
+    //     format: "",
+    //     pos: {
+    //       longitude: 120.3092839111622,
+    //       latitude: 22.622873224183273,
+    //       altitude: 0,
+    //     },
+    //     slopeLevel: 2,
+    //   },
+    //   {
+    //     type: "yellow",
+    //     title: "宜蘭市",
+    //     format: "",
+    //     pos: {
+    //       longitude: 121.75505270900717,
+    //       latitude: 24.757574284106955,
+    //       altitude: 0,
+    //     },
+    //     slopeLevel: 4,
+    //   },
+    // ];
+    // markerCreater(viewer, markerList);
   }, []);
 
   const mediaStreamConstraints = {
@@ -488,22 +570,51 @@ export default (props: any) => {
     });
     viewer.entities.show = false;
   }
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(true);
 
+  const [play, setPlay] = useState<boolean>(true);
   useEffect(() => {
     if (!viewerObj) return;
     viewerObj.entities.show = show;
   }, [show]);
 
+  const toggleAnimation = () => {
+    console.log('handlersRef.current', handlersRef.current)
+    console.log('handlersRef.current?.autoRotation', handlersRef.current?.autoRotation)
+    
+    console.log('handlerInstance', handlerInstance)
+    console.log('handlerInstance.autoRotation', handlerInstance.autoRotation)
+    if(handlerInstance.autoRotation) {
+      handlerInstance.autoRotation = false
+      setPlay(false)
+    } else {
+      handlerInstance.autoRotation = true
+      setPlay(true)
+    }
+  }
   return (
     <div className="marker_demo">
       {/* <button
-        style={{ position: "fixed", top: "0px", right: "0px", zIndex: 10 }}
-        onClick={() => setShow(!show)}
+        style={{ position: "fixed", top: "0px", right: "100px", zIndex: 10 }}
+        onClick={() => toggleAnimation()}
       >
-        {show ? "hide" : "show"}
+        開關
       </button> */}
 
+      <div
+        className={`switch_btn animation_toggle ${windowWidth <= 800 ? "small" : ""}`}
+        onClick={() => toggleAnimation()}
+      >
+        <div className="switch_btn_inner"></div>
+        <div className="switch_btn_bg">
+          <div className={`switch_btn_bg_middle ${play? "" : "current_animation"}`}>
+            <div className="switch_btn_bg_inner">
+              {play && <div className={`right_text`}>stop</div>}
+              {!play && <div className={`left_text`}>rotate</div>}
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className={`switch_btn right_switch_btn ${windowWidth <= 800 ? "small" : ""}`}
         onClick={() => setShow(!show)}
